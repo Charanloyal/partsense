@@ -1,6 +1,7 @@
 # PartSense ⚡ Spare Part Failure Prediction & Warranty Analytics Platform
 
-[![CI Pipeline](https://github.com/username/partsense/actions/workflows/ci.yml/badge.svg)](https://github.com/username/partsense/actions)
+[![CI Pipeline](https://github.com/Charanloyal/partsense/actions/workflows/ci.yml/badge.svg)](https://github.com/Charanloyal/partsense/actions)
+[![Live Demo](https://img.shields.io/badge/Render-Live%20Demo-brightgreen.svg)](https://partsense.onrender.com)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-v2.1.4-orange.svg)](https://xgboost.readthedocs.io/)
 [![DuckDB](https://img.shields.io/badge/DuckDB-v1.2.0-yellow.svg)](https://duckdb.org/)
@@ -8,6 +9,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > **Portfolio-Grade ML & Data Engineering Architecture**: An enterprise-grade automotive aftersales intelligence platform that predicts component failure, diagnoses root-cause failure mechanisms from high-frequency telemetry, flags novel sensor anomalies with an unsupervised Isolation Forest, explains predictions with SHAP waterfalls, and calculates aftersales warranty KPIs using DuckDB SQL.
+
+> ⏱️ **Free-Tier Deployment Note**: The web service is hosted on the Render free tier and automatically spins down when idle. The initial cold start may take 30–60 seconds to spin up the container; subsequent interactions run with sub-second latency.
+
 
 ---
 
@@ -151,14 +155,19 @@ The user interface is structured into 6 focused modules:
 
 ---
 
-## 📸 Screenshots & UI Tour
+## 📸 Screenshots & Interactive Platform Tour
 
-| Module | Interface Preview |
-|---|---|
-| **Executive Overview (Home)** | ![Architecture & Live KPIs](reports/figures/shap_summary.png) |
-| **Component Health & SHAP Waterfall** | *Interactive telemetry sliders, dynamic Plotly gauge, and local SHAP decomposition* |
-| **Warranty & DuckDB Analytics** | *Pareto 80/20 spend curve, 24-month claims trend, and regional failure heatmap* |
-| **Model Validation & Threshold Tuning** | *Dynamic confusion matrix, ROC/PR curves, and operating threshold slider ($p^*=0.393$)* |
+<div align="center">
+  <img src="docs/screenshots/partsense_demo.gif" alt="PartSense Interactive Platform Tour" width="850px" />
+  <p><em>Animated Walkthrough: Telemetry Health Monitor, OvR Diagnoser, SHAP Waterfall, and DuckDB Warranty Analytics</em></p>
+</div>
+
+| Dashboard Module | Visual Preview | Description |
+|---|---|---|
+| **⚡ Executive Overview (Home)** | <img src="docs/screenshots/01_home_dashboard.png" width="400px"/> | Live fleet KPIs loaded from DuckDB & `metrics.json`, and system architecture. |
+| **🔍 Part Health Monitor** | <img src="docs/screenshots/02_part_health_monitor.png" width="400px"/> | Sliders, risk gauge, OvR failure modes, and local SHAP waterfall decomposition. |
+| **📊 Warranty & Aftersales Analytics** | <img src="docs/screenshots/03_warranty_analytics.png" width="400px"/> | 80/20 Pareto claim costs, 24-month spend trend, and regional failure heatmap. |
+| **📈 Model Performance & Validation** | <img src="docs/screenshots/04_model_performance.png" width="400px"/> | Dynamic threshold slider ($p^*=0.393$), confusion matrix, and ROC/PR curves. |
 
 ---
 
@@ -171,7 +180,7 @@ The user interface is structured into 6 focused modules:
 ### 1. Installation
 ```bash
 # Clone the repository
-git clone https://github.com/username/partsense.git
+git clone https://github.com/Charanloyal/partsense.git
 cd partsense
 
 # Create virtual environment

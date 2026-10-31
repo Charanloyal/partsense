@@ -42,7 +42,7 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "C4", "UP"]
-ignore = ["E501"]
+ignore = ["E501", "E402"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["partsense"]

@@ -284,4 +284,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     res = generate_synthetic_aftersales_layer(args.config)
-    print("Synthetic Generation Output:", res)
+    logger.info("Synthetic Generation Output: %s", res)

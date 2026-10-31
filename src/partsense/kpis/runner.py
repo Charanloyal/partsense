@@ -80,18 +80,23 @@ class KPIRunner:
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+    )
     runner = KPIRunner()
-    print("=" * 70)
-    print("  PARTSENSE DUCKDB AFTERSALES KPI SUMMARY (SYNTHETIC BENCHMARK)")
-    print("=" * 70)
+    logger.info("=" * 70)
+    logger.info("  PARTSENSE DUCKDB AFTERSALES KPI SUMMARY (SYNTHETIC BENCHMARK)")
+    logger.info("=" * 70)
     mtbf = runner.run_query("mtbf_by_part_family")
-    print("\n--- MTBF by Part Family (Operating Hours = Tool Wear Min / 60) ---")
-    print(mtbf.to_string(index=False))
+    logger.info(
+        "\n--- MTBF by Part Family (Operating Hours = Tool Wear Min / 60) ---\n%s",
+        mtbf.to_string(index=False),
+    )
 
     iptv = runner.run_query("warranty_claims_per_1000_sales")
-    print("\n--- Warranty Claims per 1,000 Units Sold (IPTV) ---")
-    print(iptv.to_string(index=False))
+    logger.info(
+        "\n--- Warranty Claims per 1,000 Units Sold (IPTV) ---\n%s", iptv.to_string(index=False)
+    )
 
     pareto = runner.run_query("pareto_failure_modes")
-    print("\n--- Pareto 80/20 Failure Mode Spend ---")
-    print(pareto.to_string(index=False))
+    logger.info("\n--- Pareto 80/20 Failure Mode Spend ---\n%s", pareto.to_string(index=False))

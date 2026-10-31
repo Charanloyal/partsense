@@ -7,8 +7,17 @@ reusable presentation components for all multipage dashboard views.
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 from typing import Any
+
+# Ensure src/ and repo root are in sys.path
+ROOT_DIR = Path(__file__).resolve().parent.parent
+_SRC_DIR = ROOT_DIR / "src"
+if str(_SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(_SRC_DIR))
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 import joblib
 import pandas as pd
@@ -17,8 +26,6 @@ import streamlit as st
 
 from partsense.config import load_config
 from partsense.kpis.runner import KPIRunner
-
-ROOT_DIR = Path(__file__).resolve().parent.parent
 
 
 @st.cache_resource(show_spinner=False)
