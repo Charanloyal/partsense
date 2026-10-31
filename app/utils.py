@@ -77,8 +77,8 @@ def load_shap_explainer(_model: Any) -> shap.TreeExplainer:
 def get_kpi_runner() -> KPIRunner:
     """Initialize and cache the DuckDB KPI execution engine."""
     cfg = get_config()
-    duckdb_path = ROOT_DIR / cfg.aftersales.duckdb_path
-    sql_dir = ROOT_DIR / cfg.aftersales.sql_dir
+    duckdb_path = ROOT_DIR / cfg.data.duckdb_path
+    sql_dir = ROOT_DIR / "sql"
     return KPIRunner(duckdb_path=duckdb_path, sql_dir=sql_dir)
 
 

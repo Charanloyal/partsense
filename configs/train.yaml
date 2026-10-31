@@ -1,0 +1,50 @@
+# Model training configuration for PartSense
+project:
+  name: "PartSense"
+  random_seed: 42
+
+data:
+  train_split: "data/processed/train.parquet"
+  test_split: "data/processed/test.parquet"
+  target_column: "Machine failure"
+  failure_mode_columns:
+    - "TWF"
+    - "HDF"
+    - "PWF"
+    - "OSF"
+    - "RNF"
+
+model:
+  cv_folds: 5
+  min_precision_floor: 0.50
+  default_threshold: 0.50
+  
+  champion_xgboost:
+    n_estimators: 150
+    max_depth: 4
+    learning_rate: 0.08
+    subsample: 0.85
+    colsample_bytree: 0.85
+    eval_metric: "logloss"
+    random_state: 42
+
+  baseline_logistic_regression:
+    max_iter: 1000
+    class_weight: "balanced"
+    random_state: 42
+
+  failure_modes_ovr:
+    n_estimators: 100
+    max_depth: 3
+    learning_rate: 0.05
+    random_state: 42
+
+  isolation_forest:
+    contamination: 0.034
+    n_estimators: 150
+    random_state: 42
+
+reports:
+  metrics_json: "reports/metrics.json"
+  model_card: "reports/MODEL_CARD.md"
+  shap_summary_fig: "reports/figures/shap_summary.png"

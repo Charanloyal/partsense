@@ -44,11 +44,15 @@ All metrics reported below and displayed within the application are loaded direc
 
 ### 1. Primary Binary Classifier (Machine Failure)
 
+<!-- BENCHMARK_TABLE_START -->
+
 | Architecture | Test ROC-AUC | Test PR-AUC | Operating Threshold Policy | Test Recall | Test Precision | Test F1 |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|
 | **PartSense XGBoost (Champion)** | **0.9825** | **0.8882** | **Tuned ($p^* = 0.3927$)** | **91.2%** (62/68) | **50.4%** | **0.6492** |
 | PartSense XGBoost (Default) | 0.9825 | 0.8882 | Default ($p = 0.5000$) | 89.7% (61/68) | 60.4% | 0.7219 |
 | Baseline Logistic Regression (Std) | 0.9385 | 0.4297 | Default ($p = 0.5000$) | 88.2% (60/68) | 18.0% | 0.2993 |
+
+<!-- BENCHMARK_TABLE_END -->
 
 > **Key Engineering Insight**: On severe class imbalance (3.4%), ROC-AUC (0.9385) can be deceptively optimistic for a naive linear baseline. In contrast, **PR-AUC exposes the true separation**: XGBoost achieves **0.8882 PR-AUC vs 0.4297 for baseline** (+106.7% gain). Tuning the operating threshold on out-of-fold training predictions unlocks **91.2% recall** while preserving precision $\ge 50\%$.
 
@@ -144,6 +148,17 @@ The user interface is structured into 6 focused modules:
 4. **📊 Warranty Analytics**: DuckDB SQL dashboards, 80/20 Pareto spend curve, 24-month claim trends, regional failure heatmaps, and top parts at risk.
 5. **📈 Model Performance**: Audited metrics comparison table, interactive threshold slider exploring precision-recall trade-offs with dynamic confusion matrices, ROC/PR curves, global SHAP feature importance, and Isolation Forest precision@k / recall@k evaluation.
 6. **📖 About & Methodology**: Theoretical formulations, mathematical physics derivations, data attribution (UCI CC BY 4.0), assumptions, and embedded Model Card.
+
+---
+
+## 📸 Screenshots & UI Tour
+
+| Module | Interface Preview |
+|---|---|
+| **Executive Overview (Home)** | ![Architecture & Live KPIs](reports/figures/shap_summary.png) |
+| **Component Health & SHAP Waterfall** | *Interactive telemetry sliders, dynamic Plotly gauge, and local SHAP decomposition* |
+| **Warranty & DuckDB Analytics** | *Pareto 80/20 spend curve, 24-month claims trend, and regional failure heatmap* |
+| **Model Validation & Threshold Tuning** | *Dynamic confusion matrix, ROC/PR curves, and operating threshold slider ($p^*=0.393$)* |
 
 ---
 
@@ -284,6 +299,24 @@ partsense/
 
 ---
 
+## ⚠️ Limitations & Future Work
+
+- **Stationary vs Non-Stationary Telemetry**: The AI4I 2020 benchmark simulates stationary cutting conditions. In real production fleets, tool degradation is subject to operator-induced shock loads, tool regrinding cycles, and seasonal temperature swings.
+- **Random Electronic Failures (RNF)**: As demonstrated by our audited evaluation, RNF cases cannot be learned by gradient boosted trees because they are mathematically injected independent of process sensor features.
+- **Edge Deployment & Microcontrollers**: Future releases will export champion models to ONNX Runtime and TFLite for deployment on embedded ESP32/ARM Cortex industrial microcontrollers with sub-millisecond inference latencies.
+- **Streaming Telemetry**: Planned integration with Apache Kafka / Redpanda for high-throughput sensor stream ingestion and continuous drift monitoring.
+
+---
+
+## 👤 Author & Acknowledgments
+
+- **Lead ML Engineer**: [Charanloyal](https://github.com/Charanloyal)
+- **Email**: [charankumarreddy2028@gmail.com](mailto:charankumarreddy2028@gmail.com)
+- **Data Attribution**: Stephan Matzka (2020), *AI4I 2020 Predictive Maintenance Dataset*, UCI Machine Learning Repository ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode)).
+
+---
+
 ## ⚖️ License
 
 Distributed under the MIT License. See `LICENSE` for details.
+

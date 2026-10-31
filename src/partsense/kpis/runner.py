@@ -77,3 +77,21 @@ class KPIRunner:
             "pareto_failure_modes": self.run_query("pareto_failure_modes"),
             "top_parts_at_risk": self.run_query("top_parts_at_risk"),
         }
+
+
+if __name__ == "__main__":
+    runner = KPIRunner()
+    print("=" * 70)
+    print("  PARTSENSE DUCKDB AFTERSALES KPI SUMMARY (SYNTHETIC BENCHMARK)")
+    print("=" * 70)
+    mtbf = runner.run_query("mtbf_by_part_family")
+    print("\n--- MTBF by Part Family (Operating Hours = Tool Wear Min / 60) ---")
+    print(mtbf.to_string(index=False))
+
+    iptv = runner.run_query("warranty_claims_per_1000_sales")
+    print("\n--- Warranty Claims per 1,000 Units Sold (IPTV) ---")
+    print(iptv.to_string(index=False))
+
+    pareto = runner.run_query("pareto_failure_modes")
+    print("\n--- Pareto 80/20 Failure Mode Spend ---")
+    print(pareto.to_string(index=False))
