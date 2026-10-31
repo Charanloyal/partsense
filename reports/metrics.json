@@ -1,0 +1,194 @@
+{
+  "metadata": {
+    "project": "PartSense",
+    "version": "0.1.0",
+    "generated_at_utc": "2026-10-31T18:15:20.634200+00:00",
+    "random_seed": 42,
+    "dataset": {
+      "name": "AI4I 2020 Predictive Maintenance Dataset",
+      "uci_id": 601,
+      "is_synthetic_benchmark": true,
+      "attribution": "Stephan Matzka (2020), UCI Machine Learning Repository (CC BY 4.0)",
+      "test_samples": 2000,
+      "test_failures": 68,
+      "test_failure_rate": 0.034
+    }
+  },
+  "main_xgboost": {
+    "discrimination": {
+      "roc_auc": 0.9825,
+      "pr_auc": 0.8882
+    },
+    "default_threshold_0_5": {
+      "threshold": 0.5,
+      "accuracy": 0.9765,
+      "precision": 0.604,
+      "recall": 0.8971,
+      "f1": 0.7219,
+      "confusion_matrix": {
+        "tn": 1892,
+        "fp": 40,
+        "fn": 7,
+        "tp": 61
+      }
+    },
+    "tuned_threshold_policy": {
+      "threshold": 0.3927,
+      "min_precision_floor": 0.5,
+      "accuracy": 0.9665,
+      "precision": 0.5041,
+      "recall": 0.9118,
+      "f1": 0.6492,
+      "confusion_matrix": {
+        "tn": 1871,
+        "fp": 61,
+        "fn": 6,
+        "tp": 62
+      }
+    },
+    "top_shap_features": [
+      {
+        "feature": "tool_wear_min",
+        "mean_abs_shap": 1.04464
+      },
+      {
+        "feature": "rotational_speed_rpm",
+        "mean_abs_shap": 1.01535
+      },
+      {
+        "feature": "power_W",
+        "mean_abs_shap": 0.94376
+      },
+      {
+        "feature": "torque_nm",
+        "mean_abs_shap": 0.58246
+      },
+      {
+        "feature": "strain_minNm",
+        "mean_abs_shap": 0.56273
+      },
+      {
+        "feature": "temp_diff_K",
+        "mean_abs_shap": 0.52225
+      }
+    ]
+  },
+  "baseline_logistic_regression": {
+    "roc_auc": 0.9385,
+    "pr_auc": 0.4297,
+    "accuracy_at_05": 0.8595,
+    "precision_at_05": 0.1802,
+    "recall_at_05": 0.8824,
+    "f1_at_05": 0.2993
+  },
+  "failure_modes_ovr": {
+    "TWF": {
+      "test_cases": 10,
+      "roc_auc": 0.8203,
+      "pr_auc": 0.0622,
+      "precision": 0.0532,
+      "recall": 0.5,
+      "f1": 0.0962
+    },
+    "HDF": {
+      "test_cases": 29,
+      "roc_auc": 0.9998,
+      "pr_auc": 0.9868,
+      "precision": 0.9062,
+      "recall": 1.0,
+      "f1": 0.9508
+    },
+    "PWF": {
+      "test_cases": 13,
+      "roc_auc": 0.9998,
+      "pr_auc": 0.9654,
+      "precision": 0.8667,
+      "recall": 1.0,
+      "f1": 0.9286
+    },
+    "OSF": {
+      "test_cases": 16,
+      "roc_auc": 1.0,
+      "pr_auc": 1.0,
+      "precision": 0.9412,
+      "recall": 1.0,
+      "f1": 0.9697
+    },
+    "RNF": {
+      "status": "NOT LEARNABLE (Random noise failure mode by mathematical design)",
+      "test_cases": 4
+    }
+  },
+  "anomaly_detection_isolation_forest": {
+    "top_1pct": {
+      "k_samples": 20,
+      "detected_failures": 9,
+      "precision_at_k": 0.45,
+      "recall_at_k": 0.1324
+    },
+    "top_5pct": {
+      "k_samples": 100,
+      "detected_failures": 27,
+      "precision_at_k": 0.27,
+      "recall_at_k": 0.3971
+    },
+    "top_10pct": {
+      "k_samples": 200,
+      "detected_failures": 39,
+      "precision_at_k": 0.195,
+      "recall_at_k": 0.5735
+    },
+    "top_20pct": {
+      "k_samples": 400,
+      "detected_failures": 48,
+      "precision_at_k": 0.12,
+      "recall_at_k": 0.7059
+    }
+  },
+  "shap_importance_ranking": [
+    {
+      "feature": "tool_wear_min",
+      "mean_abs_shap": 1.04464
+    },
+    {
+      "feature": "rotational_speed_rpm",
+      "mean_abs_shap": 1.01535
+    },
+    {
+      "feature": "power_W",
+      "mean_abs_shap": 0.94376
+    },
+    {
+      "feature": "torque_nm",
+      "mean_abs_shap": 0.58246
+    },
+    {
+      "feature": "strain_minNm",
+      "mean_abs_shap": 0.56273
+    },
+    {
+      "feature": "temp_diff_K",
+      "mean_abs_shap": 0.52225
+    },
+    {
+      "feature": "air_temperature_k",
+      "mean_abs_shap": 0.31604
+    },
+    {
+      "feature": "process_temperature_k",
+      "mean_abs_shap": 0.15857
+    },
+    {
+      "feature": "Type_L",
+      "mean_abs_shap": 0.05166
+    },
+    {
+      "feature": "Type_M",
+      "mean_abs_shap": 0.0259
+    },
+    {
+      "feature": "Type_H",
+      "mean_abs_shap": 0.0055
+    }
+  ]
+}
