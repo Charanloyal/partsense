@@ -1,0 +1,129 @@
+project:
+  name: "PartSense"
+  version: "0.1.0"
+  random_seed: 42
+
+data:
+  dataset_name: "AI4I 2020 Predictive Maintenance Dataset"
+  uci_id: 601
+  raw_path: "data/raw/ai4i2020.csv"
+  fallback_url: "https://archive.ics.uci.edu/ml/machine-learning-databases/00601/ai4i2020.csv"
+  processed_train_path: "data/processed/train.parquet"
+  processed_test_path: "data/processed/test.parquet"
+  synthetic_dir: "data/synthetic"
+  duckdb_path: "data/synthetic/aftersales.duckdb"
+  test_size: 0.20
+  target_column: "Machine failure"
+  failure_mode_columns:
+    - "TWF"
+    - "HDF"
+    - "PWF"
+    - "OSF"
+    - "RNF"
+  leakage_forbidden_columns:
+    - "UDI"
+    - "Product ID"
+    - "TWF"
+    - "HDF"
+    - "PWF"
+    - "OSF"
+    - "RNF"
+
+features:
+  numerical_columns:
+    - "Air temperature [K]"
+    - "Process temperature [K]"
+    - "Rotational speed [rpm]"
+    - "Torque [Nm]"
+    - "Tool wear [min]"
+  categorical_columns:
+    - "Type"
+  engineered_physics_features:
+    - "power_W"
+    - "temp_diff_K"
+    - "strain_minNm"
+    - "Type_L"
+    - "Type_M"
+    - "Type_H"
+
+synthetic_aftersales:
+  start_date: "2024-01-01"
+  months: 24
+  regions:
+    - "North America"
+    - "Europe"
+    - "Asia-Pacific"
+    - "Latin America"
+  part_families:
+    - name: "Wheel Bearing"
+      unit_cost: 85.0
+      warranty_months: 24
+      claim_lognormal_mean: 5.6
+      claim_lognormal_sigma: 0.4
+    - name: "Water Pump"
+      unit_cost: 140.0
+      warranty_months: 36
+      claim_lognormal_mean: 6.1
+      claim_lognormal_sigma: 0.45
+    - name: "Alternator"
+      unit_cost: 280.0
+      warranty_months: 24
+      claim_lognormal_mean: 6.8
+      claim_lognormal_sigma: 0.35
+    - name: "Starter Motor"
+      unit_cost: 210.0
+      warranty_months: 24
+      claim_lognormal_mean: 6.5
+      claim_lognormal_sigma: 0.4
+    - name: "Brake Caliper"
+      unit_cost: 175.0
+      warranty_months: 12
+      claim_lognormal_mean: 6.2
+      claim_lognormal_sigma: 0.4
+    - name: "Fuel Pump"
+      unit_cost: 320.0
+      warranty_months: 36
+      claim_lognormal_mean: 7.0
+      claim_lognormal_sigma: 0.35
+
+models:
+  binary_classifier:
+    artifact_path: "models/xgboost_failure_classifier.joblib"
+    threshold_tuning:
+      min_precision_floor: 0.50
+    xgb_params:
+      n_estimators: 150
+      max_depth: 4
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      random_state: 42
+      eval_metric: "logloss"
+  failure_mode_ovr:
+    artifact_path: "models/xgboost_failure_modes_ovr.joblib"
+    learnable_modes:
+      - "TWF"
+      - "HDF"
+      - "PWF"
+      - "OSF"
+    unlearnable_modes:
+      - "RNF"
+  anomaly_detector:
+    artifact_path: "models/isolation_forest.joblib"
+    params:
+      n_estimators: 100
+      contamination: 0.034
+      random_state: 42
+    top_k_fractions:
+      - 0.01
+      - 0.05
+      - 0.10
+      - 0.20
+  baseline:
+    artifact_path: "models/baseline_logistic_regression.joblib"
+
+reports:
+  metrics_path: "reports/metrics.json"
+  model_card_path: "reports/MODEL_CARD.md"
+  figures_dir: "reports/figures"
+  shap_summary_img: "reports/figures/shap_summary.png"
