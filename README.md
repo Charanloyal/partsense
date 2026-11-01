@@ -1,5 +1,5 @@
 # PartSense ⚡ Spare Part Failure Prediction & Warranty Analytics Platform :Physics-informed predictive maintenance and aftersales warranty intelligence platform using XGBoost, DuckDB, SHAP, and Streamlit.
-
+Live link : https://partsense.onrender.com
 [![CI Pipeline](https://github.com/Charanloyal/partsense/actions/workflows/ci.yml/badge.svg)](https://github.com/Charanloyal/partsense/actions)
 [![Live Demo](https://img.shields.io/badge/Render-Live%20Demo-brightgreen.svg)](https://partsense.onrender.com)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
